@@ -1,5 +1,5 @@
 .header {
-  padding: 45px 200px 0;
+  padding: 45px 200px 36px;
   display: flex;
   flex-direction: column;
   gap: 41px;
@@ -7,12 +7,19 @@
 
 @media screen and (max-width: 1279px) {
   .header {
-    padding: 45px 100px 0;
+    padding: 45px 100px 36px;
   }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 800px) {
   .header {
-    padding: 45px 60px 0;
+    padding: 28px 60px 36px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .header {
+    padding: 28px 0 38px;
+    gap: 31px;
   }
 }

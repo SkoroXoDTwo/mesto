@@ -1,19 +1,26 @@
 .gallery {
   padding: 0 200px;
   display: grid;
-  gap: 17px;
+  column-gap: 17px;
+  row-gap: 20px;
   grid-template-columns: repeat(auto-fill, 282px);
   justify-content: center;
 }
 
 @media screen and (max-width: 1279px) {
   .gallery {
-    padding: 0 100px;
+    padding: 0 100px 67px;
   }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 800px) {
   .gallery {
-    padding: 0 60px;
+    padding: 0 60px 67px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .gallery {
+    padding: 0 19px 48px;
   }
 }

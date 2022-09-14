@@ -1,0 +1,7 @@
+.gallery__like {
+  max-width: 22px;
+  width: 100%;
+  height: 19px;
+  background-image: url(../../../images/like.svg);
+  background-size: cover;
+}
