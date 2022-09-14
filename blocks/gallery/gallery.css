@@ -1,0 +1,19 @@
+.gallery {
+  padding: 0 200px;
+  display: grid;
+  gap: 17px;
+  grid-template-columns: repeat(auto-fill, 282px);
+  justify-content: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .gallery {
+    padding: 0 100px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .gallery {
+    padding: 0 60px;
+  }
+}

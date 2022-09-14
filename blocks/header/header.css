@@ -4,3 +4,15 @@
   flex-direction: column;
   gap: 41px;
 }
+
+@media screen and (max-width: 1279px) {
+  .header {
+    padding: 45px 100px 0;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .header {
+    padding: 45px 60px 0;
+  }
+}
