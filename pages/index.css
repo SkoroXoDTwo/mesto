@@ -12,6 +12,16 @@
 @import url(../blocks/header/__line/header__line.css);
 
 
+/* ----------- Cекция Profile ----------- */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__picture/profile__picture.css);
+@import url(../blocks/profile/__user/profile__user.css);
+@import url(../blocks/profile/__user-name/profile__user-name.css);
+@import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
+@import url(../blocks/profile/__user-description/profile__user-description.css);
+@import url(../blocks/profile/__add-btn/profile__add-btn.css);
+
 /* ----------- Cекция Gallery ----------- */
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/gallery/__item/gallery__item.css);

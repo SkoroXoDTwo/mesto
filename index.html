@@ -15,7 +15,19 @@
     </header>
 
     <main>
-      <div class="gallery">
+      <section class="profile">
+        <div class="profile__info">
+          <img class="profile__picture" src="./images/profile-picture.jpg" alt="">
+          <div class="profile__user">
+            <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-btn"></button>
+            <p class="profile__user-description">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-btn"></button>
+      </section>
+
+      <section class="gallery">
         <article class="gallery__item">
           <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="">
           <div class="gallery__cover">
@@ -31,7 +43,7 @@
             <span class="gallery__like"></span>
           </div>
         </article>
-        
+
         <article class="gallery__item">
           <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="">
           <div class="gallery__cover">
@@ -39,7 +51,7 @@
             <span class="gallery__like"></span>
           </div>
         </article>
-      </div>
+      </section>
     </main>
   </div>
 </body>
