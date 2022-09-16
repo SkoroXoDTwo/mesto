@@ -1,16 +1,21 @@
 .profile__edit-btn {
   margin: 0;
   padding: 0;
-  background: none;
   border: 1px solid #FFFFFF;
   width: 24px;
   height: 24px;
   color: white;
+  background: none;
+  background-image: url(../../../images/btn-edit-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 10px;
 }
 
 @media screen and (max-width: 550px) {
   .profile__edit-btn {
     width: 18px;
     height: 18px;
+    background-size: 7.5px;
   }
 }
