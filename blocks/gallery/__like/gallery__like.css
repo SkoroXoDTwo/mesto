@@ -4,4 +4,10 @@
   height: 19px;
   background-image: url(../../../images/like.svg);
   background-size: cover;
+  transition: opacity 0.2s;
+}
+
+.gallery__like:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
