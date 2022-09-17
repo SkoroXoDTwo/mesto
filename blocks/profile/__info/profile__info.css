@@ -1,7 +1,7 @@
 .profile__info {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 30px;
 }
 
 @media screen and (max-width: 950px) {

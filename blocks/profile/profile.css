@@ -20,12 +20,12 @@
 
 @media screen and (max-width: 800px) {
   .profile {
-    padding: 0 60px 51px;
+    padding: 0 60px 25px;
   }
 }
 
 @media screen and (max-width: 550px) {
   .profile {
-    padding: 0 19px 51px;
+    padding: 0 19px 25px;
   }
 }

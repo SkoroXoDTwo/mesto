@@ -1,0 +1,17 @@
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup::before {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: black;
+  opacity: 0.5;
+}

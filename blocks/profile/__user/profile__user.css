@@ -3,7 +3,7 @@
   align-items: baseline;
   grid-template-columns: repeat(2, auto);
   column-gap: 18px;
-  row-gap: 16px;
+  row-gap: 11px;
 }
 
 @media screen and (max-width: 950px) {
