@@ -1,15 +1,15 @@
 .profile__user-name {
   margin: 0;
   padding: 0;
-  color: white;
+  color: #fff;
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
   max-width: 385px;
+  justify-self: end;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  justify-self: end;
 }
 
 @media screen and (max-width: 950px) {
@@ -21,7 +21,7 @@
 @media screen and (max-width: 550px) {
   .profile__user-name {
     font-size: 27px;
-    line-height: 33px;
+    line-height: 1.22;
     max-width: 210px;
     margin-left: 28px;
   }

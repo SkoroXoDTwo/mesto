@@ -9,12 +9,12 @@
   background-image: url(../../../images/btn-close-icon.svg);
   background-size: cover;
   background-size: 100%;
-  transition: opacity 0.2s;
+  transition: opacity .2s;
 }
 
 .popup__close-btn:hover {
   cursor: pointer;
-  opacity: 0.6;
+  opacity: .6;
 }
 
 @media screen and (max-width: 800px) {

@@ -3,25 +3,25 @@
   padding: 0;
   width: 150px;
   height: 50px;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #fff;
   border-radius: 2px;
   background: none;
   background-image: url(../../../images/btn-add-icon.svg);
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 22px;
-  transition: opacity 0.2s;
+  background-size: 22px, cover;
+  transition: opacity .2s;
 }
 
 .profile__add-btn:hover {
   cursor: pointer;
-  opacity: 0.6;
+  opacity: .6;
 }
 
 @media screen and (max-width: 550px) {
   .profile__add-btn {
-    max-width: 282px;;
+    max-width: 282px;
     width: 100%;
-    background-size: 16px;
+    background-size: 16px, cover;
   }
 }
