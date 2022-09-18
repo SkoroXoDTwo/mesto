@@ -8,20 +8,9 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="body">
-  <div class="popup">
-    <form class="popup__container">
-      <button class="popup__close-btn" type="button"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__input popup__input_field_name">
-      <input class="popup__input popup__input_field_description">
-      <button class="popup__save-btn" type="submit">Сохранить</button>
-    </form>
-  </div>
-
   <div class="page">
     <header class="header">
       <div class="header__logo"></div>
-      <span class="header__line"></span>
     </header>
 
     <main>
@@ -43,7 +32,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="заброшенная церковь на горе">
               <div class="gallery__cover">
-                <p class="gallery__name">Карачаевск</p>
+                <h2 class="gallery__name">Карачаевск</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -52,7 +41,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-elbrys.jpg" alt="закат на фоне горы Эльбрус">
               <div class="gallery__cover">
-                <p class="gallery__name">Гора Эльбрус</p>
+                <h2 class="gallery__name">Гора Эльбрус</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -61,7 +50,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-dombay.jpg" alt="снежные скалы в Домбае">
               <div class="gallery__cover">
-                <p class="gallery__name">Домбай</p>
+                <h2 class="gallery__name">Домбай</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -70,7 +59,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-elbrys.jpg" alt="закат на фоне горы Эльбру">
               <div class="gallery__cover">
-                <p class="gallery__name">Гора Эльбрус</p>
+                <h2 class="gallery__name">Гора Эльбрус</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -79,7 +68,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-dombay.jpg" alt="снежные скалы в Домбае">
               <div class="gallery__cover">
-                <p class="gallery__name">Домбай</p>
+                <h2 class="gallery__name">Домбай</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -88,7 +77,7 @@
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="заброшенная церковь на горе">
               <div class="gallery__cover">
-                <p class="gallery__name">Карачаево-Что-то там</p>
+                <h2 class="gallery__name">Карачаево-Что-то там</h2>
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
@@ -100,7 +89,19 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
+
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <form name="form_profile">
+          <input class="popup__input popup__input_field_name" name="user_name">
+          <input class="popup__input popup__input_field_description" name="user_description">
+          <button class="popup__save-btn" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

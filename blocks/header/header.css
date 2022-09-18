@@ -1,8 +1,13 @@
 .header {
   padding: 45px 200px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 41px;
+}
+
+.header::after {
+  content: "";
+  display: block;
+  padding-top: 40px;
+  border-bottom: 1px solid #545454;
+  opacity: .7;
 }
 
 @media screen and (max-width: 1279px) {
@@ -19,7 +24,9 @@
 
 @media screen and (max-width: 550px) {
   .header {
-    padding: 28px 0 42px;
-    gap: 31px;
+    padding: 28px 0 43px;
+  }
+  .header::after {
+    padding-top: 30px;
   }
 }

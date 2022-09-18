@@ -10,10 +10,8 @@ const descriptionUser = profile.querySelector('.profile__user-description');
 
 function openPopup () {
   popup.classList.add('popup_opened');
-  let nameUserContent = nameUser.textContent;
-  let descriptionUserContent = descriptionUser.textContent;
-  nameInput.value = nameUserContent;
-  descriptionInput.value = descriptionUserContent;
+  nameInput.value = nameUser.textContent;
+  descriptionInput.value = descriptionUser.textContent;
 }
 
 function closePopup () {
@@ -22,10 +20,8 @@ function closePopup () {
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
-  let nameInputContent = nameInput.value;
-  let descriptionInputContent = descriptionInput.value;
-  nameUser.textContent = nameInputContent;
-  descriptionUser.textContent = descriptionInputContent;
+  nameUser.textContent = nameInput.value;
+  descriptionUser.textContent = descriptionInput.value;
   closePopup();
 }
 
