@@ -14,18 +14,18 @@
 @media screen and (max-width: 950px) {
   .profile {
     flex-direction: column;
-    gap: 36px;
+    gap: 34px;
   }
 }
 
 @media screen and (max-width: 800px) {
   .profile {
-    padding: 0 60px 25px;
+    padding: 0 60px 36px;
   }
 }
 
 @media screen and (max-width: 550px) {
   .profile {
-    padding: 0 19px 25px;
+    padding: 0 19px 36px;
   }
 }
