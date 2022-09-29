@@ -28,7 +28,7 @@
 
       <section class="gallery">
         <ul class="gallery__list">
-          <li>
+      <!--    <li>
             <article class="gallery__item">
               <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="заброшенная церковь на горе">
               <div class="gallery__cover">
@@ -81,7 +81,7 @@
                 <button class="gallery__like" type="button"></button>
               </div>
             </article>
-          </li>
+          </li> -->
         </ul>
       </section>
     </main>
@@ -102,6 +102,19 @@
       </div>
     </div>
   </div>
+
+  <template id="gallery-item-template">
+    <li class="gallery__list-element">
+      <article class="gallery__item">
+        <img class="gallery__photo" src="" alt="">
+        <div class="gallery__cover">
+          <h2 class="gallery__name"></h2>
+          <button class="gallery__like" type="button"></button>
+        </div>
+      </article>
+    </li>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 </html>
