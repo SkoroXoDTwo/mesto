@@ -89,17 +89,21 @@ function formGallerySubmitHandler (evt) {
 
 function renderGallery (containerItem) {
   const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
+  
   containerItem.forEach((item) => {
     const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
     const nameItem = galleryItem.querySelector('.gallery__name');
     const photoItem = galleryItem.querySelector('.gallery__photo');
     const likeItem = galleryItem.querySelector('.gallery__like');
     const trashItem = galleryItem.querySelector('.gallery__trash');
+
     likeItem.addEventListener('click', () => { activeLike(likeItem); });
     trashItem.addEventListener('click', () => { deleteGalleryItem(galleryItem); });
     photoItem.addEventListener('click', () => { openPopup(popupGalleryItem); fillPopupGalleryItem(popupGalleryItem, item.link, item.name); });
+
     nameItem.textContent = item.name;
     photoItem.src = item.link;
+
     gallery.prepend(galleryItem);
   });
 }
