@@ -16,6 +16,7 @@ const openPopupProfileBtn = profile.querySelector('.profile__edit-btn');
 const openPopupGalleryBtn = profile.querySelector('.profile__add-btn');
 const nameUser = profile.querySelector('.profile__user-name');
 const descriptionUser = profile.querySelector('.profile__user-description');
+
 const gallery = document.querySelector('.gallery__list');
 const initialGallery = [
   {
@@ -61,18 +62,21 @@ function fillPopupProfile () {
 
 function fillPopupGalleryItem (popup, link, name) {
   popup.querySelector('.popup__photo').src = link;
-  popup.querySelector('.popup__photo-name').value = name;
+  popup.querySelector('.popup__photo-name').textContent = name;
 }
 
 function formProfileSubmitHandler (evt) {
   evt.preventDefault();
+
   nameUser.textContent = nameInputProfile.value;
   descriptionUser.textContent = descriptionInput.value;
+
   closePopup(popupProfile);
 }
 
 function formGallerySubmitHandler (evt) {
   evt.preventDefault();
+
   renderGallery([{
     name: nameInputGallery.value,
     link: linkInputGallery.value
@@ -91,7 +95,7 @@ function renderGallery (containerItem) {
     const photoItem = galleryItem.querySelector('.gallery__photo');
     const likeItem = galleryItem.querySelector('.gallery__like');
     const trashItem = galleryItem.querySelector('.gallery__trash');
-    likeItem.addEventListener('click', () => { likeActive(likeItem); });
+    likeItem.addEventListener('click', () => { activeLike(likeItem); });
     trashItem.addEventListener('click', () => { deleteGalleryItem(galleryItem); });
     photoItem.addEventListener('click', () => { openPopup(popupGalleryItem); fillPopupGalleryItem(popupGalleryItem, item.link, item.name); });
     nameItem.textContent = item.name;
@@ -100,7 +104,7 @@ function renderGallery (containerItem) {
   });
 }
 
-function likeActive (item) {
+function activeLike (item) {
   item.classList.toggle("gallery__like_active");
 }
 
@@ -114,8 +118,3 @@ formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
 openPopupProfileBtn.addEventListener('click', () => { openPopup(popupProfile); fillPopupProfile(); });
 openPopupGalleryBtn.addEventListener('click', () => { openPopup(popupGallery); });
-
-const handleDeleteItem = (e) => {
-  const currentItem = e.target.closest(".gallery__like");
-  currentItem.remove();
-};
