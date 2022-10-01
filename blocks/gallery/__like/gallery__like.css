@@ -5,7 +5,8 @@
   border: none;
   background: none;
   background-image: url(../../../images/like.svg);
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: contain;
   transition: opacity .2s;
 }
 

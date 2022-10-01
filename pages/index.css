@@ -25,6 +25,7 @@
 @import url(../blocks/gallery/__list/gallery__list.css);
 @import url(../blocks/gallery/__item/gallery__item.css);
 @import url(../blocks/gallery/__photo/gallery__photo.css);
+@import url(../blocks/gallery/__trash/gallery__trash.css);
 @import url(../blocks/gallery/__cover/gallery__cover.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
 @import url(../blocks/gallery/__like/gallery__like.css);
