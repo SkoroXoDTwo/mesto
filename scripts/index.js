@@ -71,6 +71,7 @@ function formGallerySubmitHandler (evt) {
     name: nameInputGallery.value,
     link: linkInputGallery.value
   }]);
+
   nameInputGallery.value = null;
   linkInputGallery.value = null;
   closePopup(popupGallery);
@@ -82,11 +83,16 @@ function renderGallery (containerItem) {
     const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
     const nameItem = galleryItem.querySelector('.gallery__name');
     const linkItem = galleryItem.querySelector('.gallery__photo');
+    const likeItem = galleryItem.querySelector('.gallery__like');
+    likeItem.addEventListener('click', () => { likeActive(likeItem); });
     nameItem.textContent = item.name;
     linkItem.src = item.link;
     gallery.prepend(galleryItem);
   });
+}
 
+function likeActive (item) {
+  item.classList.toggle("gallery__like_active");
 }
 
 renderGallery(initialGallery);
@@ -95,3 +101,8 @@ formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
 openPopupProfileBtn.addEventListener('click', () => { openPopup(popupProfile); fillPopupProfile(); });
 openPopupGalleryBtn.addEventListener('click', () => { openPopup(popupGallery); });
+
+const handleDeleteItem = (e) => {
+  const currentItem = e.target.closest(".gallery__like");
+  currentItem.remove();
+};
