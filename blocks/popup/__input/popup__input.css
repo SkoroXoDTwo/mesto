@@ -10,6 +10,13 @@
   color: #000;
 }
 
+.popup__input::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #C4C4C4;
+}
+
 .popup__input:last-of-type {
   margin: 0 0 47px;
 }
