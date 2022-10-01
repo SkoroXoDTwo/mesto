@@ -28,60 +28,7 @@
 
       <section class="gallery">
         <ul class="gallery__list">
-      <!--    <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="заброшенная церковь на горе">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Карачаевск</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-elbrys.jpg" alt="закат на фоне горы Эльбрус">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Гора Эльбрус</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-dombay.jpg" alt="снежные скалы в Домбае">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Домбай</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-elbrys.jpg" alt="закат на фоне горы Эльбру">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Гора Эльбрус</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-dombay.jpg" alt="снежные скалы в Домбае">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Домбай</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article class="gallery__item">
-              <img class="gallery__photo" src="./images/gallery-carachaevsk.jpg" alt="заброшенная церковь на горе">
-              <div class="gallery__cover">
-                <h2 class="gallery__name">Карачаево-Что-то там</h2>
-                <button class="gallery__like" type="button"></button>
-              </div>
-            </article>
-          </li> -->
+
         </ul>
       </section>
     </main>
@@ -90,7 +37,7 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup" id="popup_profile">
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -101,6 +48,19 @@
         </form>
       </div>
     </div>
+
+    <div class="popup" id="popup_gallery">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form name="form_profile">
+          <input class="popup__input popup__input_field_name" name="user_name" placeholder="Название">
+          <input class="popup__input popup__input_field_link" name="user_description" placeholder="Ссылка на картинку">
+          <button class="popup__save-btn" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
   </div>
 
   <template id="gallery-item-template">
