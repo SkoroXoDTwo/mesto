@@ -1,9 +1,16 @@
-const popupProfile = document.querySelector('#popup_profile');
-const popupGallery = document.querySelector('#popup_gallery');
-const popupGalleryItem = document.querySelector('#popup_gallery_item');
+const popupEditProfileInfo = document.querySelector('#popup_profile');
+const popupAddGalleryItem = document.querySelector('#popup_gallery');
+const popupFullScreenGalleryItem = document.querySelector('#popup_gallery_item');
 
-const formPopupProfile = popupProfile.querySelector('.popup__container');
-const formPopupGallery = popupGallery.querySelector('.popup__container');
+const closePopupEditProfileInfoBtn = popupEditProfileInfo.querySelector('.popup__close-btn');
+const closePopupAddGalleryItemBtn = popupAddGalleryItem.querySelector('.popup__close-btn');
+const closePopupFullScreenGalleryItemoBtn = popupFullScreenGalleryItem.querySelector('.popup__close-btn');
+
+const popupFullScreenGalleryItemPhoto = popupFullScreenGalleryItem.querySelector('.popup__photo');
+const popupFullScreenGalleryItemName = popupFullScreenGalleryItem.querySelector('.popup__photo-name');
+
+const formPopupProfile = popupEditProfileInfo.querySelector('.popup__container');
+const formPopupGallery = popupAddGalleryItem .querySelector('.popup__container');
 
 const nameInputProfile = formPopupProfile.querySelector('.popup__input_field_name');
 const descriptionInput = formPopupProfile.querySelector('.popup__input_field_description');
@@ -12,57 +19,31 @@ const nameInputGallery = formPopupGallery.querySelector('.popup__input_field_nam
 const linkInputGallery = formPopupGallery.querySelector('.popup__input_field_link');
 
 const profile = document.querySelector('.profile');
-const openPopupProfileBtn = profile.querySelector('.profile__edit-btn');
-const openPopupGalleryBtn = profile.querySelector('.profile__add-btn');
+const profileEditInfoBtn = profile.querySelector('.profile__edit-btn');
+const profileAddGalleryItemBtn = profile.querySelector('.profile__add-btn');
 const nameUser = profile.querySelector('.profile__user-name');
 const descriptionUser = profile.querySelector('.profile__user-description');
 
 const gallery = document.querySelector('.gallery__list');
-const initialGallery = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
-  const closePopupBtn = popup.querySelector('.popup__close-btn');
-  closePopupBtn.addEventListener('click', () => { closePopup(popup); });
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
 
-function fillPopupProfile () {
+function fillPopupEditProfileInfo () {
   nameInputProfile.value = nameUser.textContent;
   descriptionInput.value = descriptionUser.textContent;
 }
 
-function fillPopupGalleryItem (popup, link, name) {
-  popup.querySelector('.popup__photo').src = link;
-  popup.querySelector('.popup__photo-name').textContent = name;
+function fillPopupFullScreenGalleryItem (link, name) {
+  popupFullScreenGalleryItemPhoto.src = link;
+  popupFullScreenGalleryItemPhoto.alt = name;
+  popupFullScreenGalleryItemName.textContent = name;
 }
 
 function formProfileSubmitHandler (evt) {
@@ -71,54 +52,69 @@ function formProfileSubmitHandler (evt) {
   nameUser.textContent = nameInputProfile.value;
   descriptionUser.textContent = descriptionInput.value;
 
-  closePopup(popupProfile);
+  closePopup(popupEditProfileInfo);
 }
 
 function formGallerySubmitHandler (evt) {
   evt.preventDefault();
 
-  renderGallery([{
-    name: nameInputGallery.value,
-    link: linkInputGallery.value
-  }]);
+  renderGalleryItem(nameInputGallery.value, linkInputGallery.value);
 
-  nameInputGallery.value = null;
-  linkInputGallery.value = null;
-  closePopup(popupGallery);
+  nameInputGallery.value = '';
+  linkInputGallery.value = '';
+  closePopup(popupAddGalleryItem);
+}
+
+function createGalleryItem (name, link) {
+  const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
+  const nameItem = galleryItem.querySelector('.gallery__name');
+  const photoItem = galleryItem.querySelector('.gallery__photo');
+  const likeItem = galleryItem.querySelector('.gallery__like');
+  const trashItem = galleryItem.querySelector('.gallery__trash');
+
+  likeItem.addEventListener('click', () => { activeLike(likeItem); });
+  trashItem.addEventListener('click', () => { deleteGalleryItem(galleryItem); });
+  photoItem.addEventListener('click', () => {
+    openPopup(popupFullScreenGalleryItem);
+    fillPopupFullScreenGalleryItem(link, name);
+   });
+
+  nameItem.textContent = name;
+  photoItem.src = link;
+  photoItem.alt = name;
+
+  return galleryItem;
+}
+
+function renderGalleryItem (name, link) {
+    const item = createGalleryItem(name, link);
+    gallery.prepend(item);
 }
 
 function renderGallery (containerItem) {
-  const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
-  
-  containerItem.forEach((item) => {
-    const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
-    const nameItem = galleryItem.querySelector('.gallery__name');
-    const photoItem = galleryItem.querySelector('.gallery__photo');
-    const likeItem = galleryItem.querySelector('.gallery__like');
-    const trashItem = galleryItem.querySelector('.gallery__trash');
-
-    likeItem.addEventListener('click', () => { activeLike(likeItem); });
-    trashItem.addEventListener('click', () => { deleteGalleryItem(galleryItem); });
-    photoItem.addEventListener('click', () => { openPopup(popupGalleryItem); fillPopupGalleryItem(popupGalleryItem, item.link, item.name); });
-
-    nameItem.textContent = item.name;
-    photoItem.src = item.link;
-
-    gallery.prepend(galleryItem);
-  });
+  containerItem.forEach((item) => { renderGalleryItem(item.name, item.link) });
 }
 
 function activeLike (item) {
-  item.classList.toggle("gallery__like_active");
+  item.classList.toggle('gallery__like_active');
 }
 
 function deleteGalleryItem (item) {
   item.remove();
 }
 
-renderGallery(initialGallery);
+renderGallery(initialGalleryItems);
+
+profileEditInfoBtn.addEventListener('click', () => {
+  openPopup(popupEditProfileInfo);
+  fillPopupEditProfileInfo();
+});
+
+profileAddGalleryItemBtn.addEventListener('click', () => { openPopup(popupAddGalleryItem ); });
+
+closePopupEditProfileInfoBtn.addEventListener('click', () => { closePopup(popupEditProfileInfo); });
+closePopupAddGalleryItemBtn.addEventListener('click', () => { closePopup(popupAddGalleryItem); });
+closePopupFullScreenGalleryItemoBtn.addEventListener('click', () => { closePopup(popupFullScreenGalleryItem); });
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
-openPopupProfileBtn.addEventListener('click', () => { openPopup(popupProfile); fillPopupProfile(); });
-openPopupGalleryBtn.addEventListener('click', () => { openPopup(popupGallery); });

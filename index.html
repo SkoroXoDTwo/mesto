@@ -6,6 +6,8 @@
   <base target="_blank">
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script defer src="./scripts/cards.js"></script>
+  <script defer src="./scripts/index.js"></script>
 </head>
 <body class="body">
   <div class="page">
@@ -42,8 +44,8 @@
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="form_profile">
-          <input class="popup__input popup__input_field_name" name="user_name">
-          <input class="popup__input popup__input_field_description" name="user_description">
+          <input class="popup__input popup__input_field_name" name="user_name" required>
+          <input class="popup__input popup__input_field_description" name="user_description" required>
           <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
       </div>
@@ -54,14 +56,14 @@
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form name="form_profile">
-          <input class="popup__input popup__input_field_name" name="user_name" placeholder="Название">
-          <input class="popup__input popup__input_field_link" name="user_description" placeholder="Ссылка на картинку">
+          <input class="popup__input popup__input_field_name" name="user_name" placeholder="Название" required>
+          <input class="popup__input popup__input_field_link" type="url" name="user_description" placeholder="Ссылка на картинку" required>
           <button class="popup__save-btn" type="submit">Создать</button>
         </form>
       </div>
     </div>
 
-    <div class="popup" id="popup_gallery_item">
+    <div class="popup popup_photo" id="popup_gallery_item">
       <div class="popup__container popup__container_photo">
         <button class="popup__close-btn" type="button"></button>
         <img class="popup__photo" alt="">
@@ -83,6 +85,5 @@
     </li>
   </template>
 
-  <script src="./scripts/index.js"></script>
 </body>
 </html>
