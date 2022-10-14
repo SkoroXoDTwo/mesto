@@ -2,6 +2,8 @@ const popupEditProfileInfo = document.querySelector('#popup_profile');
 const popupAddGalleryItem = document.querySelector('#popup_gallery');
 const popupFullScreenGalleryItem = document.querySelector('#popup_gallery_item');
 
+let openedPopup;
+
 const popupFullScreenGalleryItemPhoto = popupFullScreenGalleryItem.querySelector('.popup__photo');
 const popupFullScreenGalleryItemName = popupFullScreenGalleryItem.querySelector('.popup__photo-name');
 
@@ -24,11 +26,20 @@ const gallery = document.querySelector('.gallery__list');
 const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
 
 function openPopup (popup) {
+  openedPopup = popup;
   popup.classList.add('popup_opened');
 }
 
 function closePopup (popup) {
+  openedPopup = '';
   popup.classList.remove('popup_opened');
+}
+
+function closePopupKeyEsc (evt) {
+  if(openedPopup && evt.key === 'Escape') {
+    console.log(evt.key);
+    closePopup(openedPopup);
+  }
 }
 
 function addListenerClosePopupBtns() {
@@ -117,6 +128,7 @@ profileEditInfoBtn.addEventListener('click', () => {
 profileAddGalleryItemBtn.addEventListener('click', () => { openPopup(popupAddGalleryItem ); });
 
 addListenerClosePopupBtns();
+window.addEventListener('keydown', closePopupKeyEsc);
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
