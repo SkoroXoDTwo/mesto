@@ -26,18 +26,19 @@ const gallery = document.querySelector('.gallery__list');
 const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
 
 function openPopup (popup) {
-  openedPopup = popup;
   popup.classList.add('popup_opened');
+  openedPopup = popup;
+  window.addEventListener('keydown', closePopupKeyEsc);
 }
 
 function closePopup (popup) {
-  openedPopup = '';
   popup.classList.remove('popup_opened');
+  openedPopup = '';
+  window.removeEventListener('keydown', closePopupKeyEsc);
 }
 
 function closePopupKeyEsc (evt) {
-  if(openedPopup && evt.key === 'Escape') {
-    console.log(evt.key);
+  if(evt.key === 'Escape') {
     closePopup(openedPopup);
   }
 }
@@ -128,7 +129,6 @@ profileEditInfoBtn.addEventListener('click', () => {
 profileAddGalleryItemBtn.addEventListener('click', () => { openPopup(popupAddGalleryItem ); });
 
 addListenerClosePopupBtns();
-window.addEventListener('keydown', closePopupKeyEsc);
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
