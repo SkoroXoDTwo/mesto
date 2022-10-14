@@ -2,10 +2,6 @@ const popupEditProfileInfo = document.querySelector('#popup_profile');
 const popupAddGalleryItem = document.querySelector('#popup_gallery');
 const popupFullScreenGalleryItem = document.querySelector('#popup_gallery_item');
 
-const closePopupEditProfileInfoBtn = popupEditProfileInfo.querySelector('.popup__close-btn');
-const closePopupAddGalleryItemBtn = popupAddGalleryItem.querySelector('.popup__close-btn');
-const closePopupFullScreenGalleryItemoBtn = popupFullScreenGalleryItem.querySelector('.popup__close-btn');
-
 const popupFullScreenGalleryItemPhoto = popupFullScreenGalleryItem.querySelector('.popup__photo');
 const popupFullScreenGalleryItemName = popupFullScreenGalleryItem.querySelector('.popup__photo-name');
 
@@ -33,6 +29,14 @@ function openPopup (popup) {
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+}
+
+function addListenerClosePopupBtns() {
+  const closePopupBtns = document.querySelectorAll('.popup__close-btn');
+  closePopupBtns.forEach((btn) => {
+    const popup = btn.closest('.popup');
+    btn.addEventListener('click', () => { closePopup(popup); });
+  });
 }
 
 function fillPopupEditProfileInfo () {
@@ -112,9 +116,7 @@ profileEditInfoBtn.addEventListener('click', () => {
 
 profileAddGalleryItemBtn.addEventListener('click', () => { openPopup(popupAddGalleryItem ); });
 
-closePopupEditProfileInfoBtn.addEventListener('click', () => { closePopup(popupEditProfileInfo); });
-closePopupAddGalleryItemBtn.addEventListener('click', () => { closePopup(popupAddGalleryItem); });
-closePopupFullScreenGalleryItemoBtn.addEventListener('click', () => { closePopup(popupFullScreenGalleryItem); });
+addListenerClosePopupBtns();
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
