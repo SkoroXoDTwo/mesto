@@ -63,8 +63,6 @@ function fillPopupFullScreenGalleryItem (link, name) {
 }
 
 function formProfileSubmitHandler (evt) {
-  evt.preventDefault();
-
   nameUser.textContent = nameInputProfile.value;
   descriptionUser.textContent = descriptionInput.value;
 
@@ -72,8 +70,6 @@ function formProfileSubmitHandler (evt) {
 }
 
 function formGallerySubmitHandler (evt) {
-  evt.preventDefault();
-
   renderGalleryItem(nameInputGallery.value, linkInputGallery.value);
 
   nameInputGallery.value = '';
@@ -132,3 +128,12 @@ addListenerClosePopupBtns();
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});

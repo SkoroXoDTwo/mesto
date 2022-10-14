@@ -7,6 +7,7 @@
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
   <script defer src="./scripts/cards.js"></script>
+  <script defer src="./scripts/validate.js"></script>
   <script defer src="./scripts/index.js"></script>
 </head>
 <body class="body">
@@ -43,9 +44,15 @@
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="form_profile">
-          <input class="popup__input popup__input_field_name" name="user_name" minlength="2" maxlength="40" required>
-          <input class="popup__input popup__input_field_description" name="user_description" minlength="2" maxlength="200" required>
+        <form class="popup__form" name="form_profile" novalidate>
+          <input class="popup__input popup__input_field_name" id="name-profile-input"
+            name="user_name" placeholder="Название" minlength="2" maxlength="40" required>
+          <span class="popup__input-error" id="name-profile-input-error">Вы пропустили это поле.</span>
+
+          <input class="popup__input popup__input_field_description" id="description-profile-input"
+            name="user_description" placeholder="Ссылка на картинку" minlength="2" maxlength="200" required>
+          <span class="popup__input-error" id="description-profile-input-error">Введите адрес сайта.</span>
+
           <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
       </div>
@@ -55,9 +62,15 @@
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="form_profile">
-          <input class="popup__input popup__input_field_name" name="user_name" placeholder="Название" minlength="2" maxlength="30" required>
-          <input class="popup__input popup__input_field_link" type="url" name="user_description" placeholder="Ссылка на картинку" required>
+        <form class="popup__form" name="form_profile" novalidate>
+          <input class="popup__input popup__input_field_name" id="name-photo-input"
+            name="user_name" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__input-error" id="name-photo-input-error">Вы пропустили это поле.</span>
+
+          <input class="popup__input popup__input_field_link" id="link-photo-input"
+            type="url" name="user_description" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error" id="link-photo-input-error">Вы пропустили это поле.</span>
+
           <button class="popup__save-btn" type="submit">Создать</button>
         </form>
       </div>
