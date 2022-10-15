@@ -27,7 +27,7 @@ const resetFormValidity = (formElement, inputList, buttonElement, settingList) =
   });
 };
 
-const setEventListeners = (formElement, settingList, index) => {
+const setEventListeners = (formElement, settingList) => {
   const inputList = Array.from(formElement.querySelectorAll(settingList.inputSelector));
   const openPopupBtns = Array.from(document.querySelectorAll(`#${settingList.openPopupBtnId}`));
   const buttonElement = formElement.querySelector(settingList.submitButtonSelector);
@@ -53,8 +53,8 @@ const setEventListeners = (formElement, settingList, index) => {
 
 const enableValidation = (settingList) => {
   const formList = Array.from(document.querySelectorAll(settingList.formSelector));
-  formList.forEach((formElement, index) => {
-    setEventListeners(formElement, settingList, index);
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, settingList);
   });
 };
 
