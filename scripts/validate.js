@@ -44,13 +44,11 @@ const setEventListeners = (formElement, settingList, index) => {
     evt.preventDefault();
   });
 
-  if(!index) { // проверка, для того, чтобы слушатели кнопки открытия попапов не дублировались
-    openPopupBtns.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        resetFormValidity(formElement, inputList, buttonElement, settingList);
-      });
+  openPopupBtns.forEach((btn) => {
+    btn.addEventListener('click', function () {
+      resetFormValidity(formElement, inputList, buttonElement, settingList);
     });
-  }
+  });
 };
 
 const enableValidation = (settingList) => {
