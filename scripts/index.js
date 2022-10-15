@@ -7,8 +7,8 @@ let openedPopup;
 const popupFullScreenGalleryItemPhoto = popupFullScreenGalleryItem.querySelector('.popup__photo');
 const popupFullScreenGalleryItemName = popupFullScreenGalleryItem.querySelector('.popup__photo-name');
 
-const formPopupProfile = popupEditProfileInfo.querySelector('.popup__container');
-const formPopupGallery = popupAddGalleryItem .querySelector('.popup__container');
+const formPopupProfile = popupEditProfileInfo.querySelector('.popup__form');
+const formPopupGallery = popupAddGalleryItem .querySelector('.popup__form');
 
 const nameInputProfile = formPopupProfile.querySelector('.popup__input_field_name');
 const descriptionInput = formPopupProfile.querySelector('.popup__input_field_description');
@@ -29,12 +29,20 @@ function openPopup (popup) {
   popup.classList.add('popup_opened');
   openedPopup = popup;
   window.addEventListener('keydown', closePopupKeyEsc);
+  window.addEventListener('click', closePopupClickOverlay);
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
   openedPopup = '';
   window.removeEventListener('keydown', closePopupKeyEsc);
+  window.removeEventListener('mousedown', closePopupClickOverlay);
+}
+
+function closePopupClickOverlay (evt) { 
+  if(evt.target === openedPopup) {
+    closePopup(openedPopup);
+  }
 }
 
 function closePopupKeyEsc (evt) {
@@ -56,6 +64,10 @@ function fillPopupEditProfileInfo () {
   descriptionInput.value = descriptionUser.textContent;
 }
 
+function fillPopupAddGalleryItem () {
+  formPopupGallery.reset();
+}
+
 function fillPopupFullScreenGalleryItem (link, name) {
   popupFullScreenGalleryItemPhoto.src = link;
   popupFullScreenGalleryItemPhoto.alt = name;
@@ -71,9 +83,7 @@ function formProfileSubmitHandler (evt) {
 
 function formGallerySubmitHandler (evt) {
   renderGalleryItem(nameInputGallery.value, linkInputGallery.value);
-
-  nameInputGallery.value = '';
-  linkInputGallery.value = '';
+  fillPopupAddGalleryItem();
   closePopup(popupAddGalleryItem);
 }
 
