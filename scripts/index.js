@@ -29,17 +29,17 @@ function openPopup (popup) {
   popup.classList.add('popup_opened');
   openedPopup = popup;
   window.addEventListener('keydown', closePopupKeyEsc);
-  window.addEventListener('click', closePopupClickOverlay);
+  window.addEventListener('mousedown', closePopupClickOverlay);
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
-  openedPopup = '';
+  openedPopup = null;
   window.removeEventListener('keydown', closePopupKeyEsc);
   window.removeEventListener('mousedown', closePopupClickOverlay);
 }
 
-function closePopupClickOverlay (evt) { 
+function closePopupClickOverlay (evt) {
   if(evt.target === openedPopup) {
     closePopup(openedPopup);
   }
@@ -127,14 +127,16 @@ function deleteGalleryItem (item) {
 
 renderGallery(initialGalleryItems);
 addListenerClosePopupBtns();
-fillPopupEditProfileInfo();
 
 profileEditInfoBtn.addEventListener('click', () => {
   openPopup(popupEditProfileInfo);
   fillPopupEditProfileInfo();
 });
 
-profileAddGalleryItemBtn.addEventListener('click', () => { openPopup(popupAddGalleryItem ); });
+profileAddGalleryItemBtn.addEventListener('click', () => {
+  openPopup(popupAddGalleryItem);
+  fillPopupAddGalleryItem();
+});
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
@@ -145,5 +147,6 @@ enableValidation({
   submitButtonSelector: '.popup__save-btn',
   inactiveButtonClass: 'popup__save-btn_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+  errorClass: 'popup__input-error_active',
+  openPopupBtnId: 'open-popup-btn'
 });
