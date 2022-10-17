@@ -65,5 +65,3 @@ const clearValidationErrors = (popupElement) => {
     toggleButtonState(inputList, buttonElement, settingList);;
   });
 };
-
-const isPopupHasForm = (popupElement) => { return popupElement.querySelector('.popup__form') !== null; };
