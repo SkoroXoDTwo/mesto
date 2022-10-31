@@ -56,7 +56,7 @@ const enableValidation = (settingList) => {
   });
 };
 
-const clearValidationErrors = (popupElement) => {
+const clearValidationErrors = (popupElement, settingList) => {
   const formElement = popupElement.querySelector('.popup__form');
   const inputList =  Array.from(formElement.querySelectorAll('.popup__input'));
   const buttonElement = formElement.querySelector(settingList.submitButtonSelector);

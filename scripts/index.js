@@ -1,3 +1,5 @@
+import { Card } from './Card.js'
+
 const popupEditProfileInfo = document.querySelector('#popup_profile');
 const popupAddGalleryItem = document.querySelector('#popup_gallery');
 const popupFullScreenGalleryItem = document.querySelector('#popup_gallery_item');
@@ -21,7 +23,6 @@ const nameUser = profile.querySelector('.profile__user-name');
 const descriptionUser = profile.querySelector('.profile__user-description');
 
 const gallery = document.querySelector('.gallery__list');
-const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
 
 const openedPopup = () => { return document.querySelector('.popup_opened') };
 
@@ -85,7 +86,7 @@ function fillPopupFullScreenGalleryItem (link, name) {
   popupFullScreenGalleryItemName.textContent = name;
 };
 
-function createGalleryItem (item) {
+/* function createGalleryItem (item) {
   const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
   const nameItem = galleryItem.querySelector('.gallery__name');
   const photoItem = galleryItem.querySelector('.gallery__photo');
@@ -104,15 +105,16 @@ function createGalleryItem (item) {
   photoItem.alt = item.name;
 
   return galleryItem;
-};
+}; */
 
-function renderGalleryItem (name, link) {
-    const item = createGalleryItem( {name, link} );
-    gallery.prepend(item);
+function renderGalleryItem (item) {
+    const card = new Card(item, '#gallery-item-template');
+    const cardElement = card.generateCard();
+    gallery.prepend(cardElement);
 };
 
 function renderGallery (containerItem) {
-  containerItem.forEach((item) => { renderGalleryItem(item.name, item.link) });
+  containerItem.forEach((item) => { renderGalleryItem(item) });
 };
 
 function handleLikeClick (item) {
@@ -131,9 +133,10 @@ function formProfileSubmitHandler (evt) {
 
 function formGallerySubmitHandler (evt) {
   evt.preventDefault();
-  renderGalleryItem(nameInputGallery.value, linkInputGallery.value);
+
+  renderGalleryItem({name: nameInputGallery.value, link: linkInputGallery.value} );
   fillPopupAddGalleryItem();
-  clearValidationErrors(popupAddGalleryItem);
+  clearValidationErrors(popupAddGalleryItem, settingList);
   closePopup(popupAddGalleryItem);
 };
 
@@ -141,7 +144,7 @@ renderGallery(initialGalleryItems);
 addListenerClosePopupBtns();
 
 profileEditInfoBtn.addEventListener('click', () => {
-  clearValidationErrors(popupEditProfileInfo);
+  clearValidationErrors(popupEditProfileInfo, settingList);
   fillPopupEditProfileInfo();
   openPopup(popupEditProfileInfo);
 });
@@ -154,3 +157,11 @@ formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
 
 enableValidation(settingList);
+
+export {
+  handleLikeClick,
+  deleteGalleryItem,
+  openPopup,
+  popupFullScreenGalleryItem,
+  fillPopupFullScreenGalleryItem
+};
