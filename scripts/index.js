@@ -1,4 +1,5 @@
-import { Card } from './Card.js'
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const popupEditProfileInfo = document.querySelector('#popup_profile');
 const popupAddGalleryItem = document.querySelector('#popup_gallery');
@@ -86,27 +87,6 @@ function fillPopupFullScreenGalleryItem (link, name) {
   popupFullScreenGalleryItemName.textContent = name;
 };
 
-/* function createGalleryItem (item) {
-  const galleryItem = galleryItemTemplate.querySelector('.gallery__list-element').cloneNode(true);
-  const nameItem = galleryItem.querySelector('.gallery__name');
-  const photoItem = galleryItem.querySelector('.gallery__photo');
-  const likeItem = galleryItem.querySelector('.gallery__like');
-  const trashItem = galleryItem.querySelector('.gallery__trash');
-
-  likeItem.addEventListener('click', () => { handleLikeClick(likeItem); });
-  trashItem.addEventListener('click', () => { deleteGalleryItem(galleryItem); });
-  photoItem.addEventListener('click', () => {
-    openPopup(popupFullScreenGalleryItem);
-    fillPopupFullScreenGalleryItem(item.link, item.name);
-   });
-
-  nameItem.textContent = item.name;
-  photoItem.src = item.link;
-  photoItem.alt = item.name;
-
-  return galleryItem;
-}; */
-
 function renderGalleryItem (item) {
     const card = new Card(item, '#gallery-item-template');
     const cardElement = card.generateCard();
@@ -125,8 +105,16 @@ function deleteGalleryItem (item) {
   item.remove();
 };
 
+const formPopupProfileValidator = new FormValidator(settingList, formPopupProfile);
+formPopupProfileValidator.enableValidation();
+
+const formPopupGalleryValidator = new FormValidator(settingList, formPopupGallery);
+formPopupGalleryValidator.enableValidation();
+
 function formProfileSubmitHandler (evt) {
   evt.preventDefault();
+
+  formPopupProfileValidator.clearValidationErrors();
   fillProfileInfo();
   closePopup(popupEditProfileInfo);
 };
@@ -136,7 +124,7 @@ function formGallerySubmitHandler (evt) {
 
   renderGalleryItem({name: nameInputGallery.value, link: linkInputGallery.value} );
   fillPopupAddGalleryItem();
-  clearValidationErrors(popupAddGalleryItem, settingList);
+  formPopupGalleryValidator.clearValidationErrors();
   closePopup(popupAddGalleryItem);
 };
 
@@ -144,8 +132,9 @@ renderGallery(initialGalleryItems);
 addListenerClosePopupBtns();
 
 profileEditInfoBtn.addEventListener('click', () => {
-  clearValidationErrors(popupEditProfileInfo, settingList);
+
   fillPopupEditProfileInfo();
+  formPopupProfileValidator.clearValidationErrors();
   openPopup(popupEditProfileInfo);
 });
 
@@ -155,8 +144,6 @@ profileAddGalleryItemBtn.addEventListener('click', () => {
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
-
-enableValidation(settingList);
 
 export {
   handleLikeClick,
