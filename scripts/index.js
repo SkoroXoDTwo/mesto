@@ -1,3 +1,4 @@
+import { initialGalleryItems } from './cards.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
@@ -87,22 +88,19 @@ function fillPopupFullScreenGalleryItem (link, name) {
   popupFullScreenGalleryItemName.textContent = name;
 };
 
+function openCardGallery(link, name) {
+  fillPopupFullScreenGalleryItem(link, name);
+  openPopup(popupFullScreenGalleryItem);
+}
+
 function renderGalleryItem (item) {
-    const card = new Card(item, '#gallery-item-template');
+    const card = new Card(item, '#gallery-item-template', openCardGallery);
     const cardElement = card.generateCard();
     gallery.prepend(cardElement);
 };
 
 function renderGallery (containerItem) {
   containerItem.forEach((item) => { renderGalleryItem(item) });
-};
-
-function handleLikeClick (item) {
-  item.classList.toggle('gallery__like_active');
-};
-
-function deleteGalleryItem (item) {
-  item.remove();
 };
 
 const formPopupProfileValidator = new FormValidator(settingList, formPopupProfile);
@@ -144,11 +142,3 @@ profileAddGalleryItemBtn.addEventListener('click', () => {
 
 formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
 formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
-
-export {
-  handleLikeClick,
-  deleteGalleryItem,
-  openPopup,
-  popupFullScreenGalleryItem,
-  fillPopupFullScreenGalleryItem
-};

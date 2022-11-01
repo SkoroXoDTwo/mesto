@@ -1,16 +1,9 @@
-import {
-  handleLikeClick,
-  deleteGalleryItem,
-  openPopup,
-  popupFullScreenGalleryItem,
-  fillPopupFullScreenGalleryItem
-} from './index.js';
-
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openCardGallery) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._openCardGallery = openCardGallery;
   }
 
   _getTemplate() {
@@ -21,15 +14,6 @@ export class Card {
       .cloneNode(true);
 
     return cardElement;
-  }
-
-  _setEventListeners() {
-    this._likeElement.addEventListener('click', () => { handleLikeClick(this._likeElement); });
-    this._trashElement.addEventListener('click', () => { deleteGalleryItem(this._element); });
-    this._photoElement.addEventListener('click', () => {
-      openPopup(popupFullScreenGalleryItem);
-      fillPopupFullScreenGalleryItem(this._link, this._name);
-     });
   }
 
   generateCard() {
@@ -48,4 +32,20 @@ export class Card {
 
     return this._element;
   }
+
+  _setEventListeners() {
+    this._likeElement.addEventListener('click', () => { this._handleLikeClick(); });
+    this._trashElement.addEventListener('click', () => { this._deleteGalleryItem(); });
+    this._photoElement.addEventListener('click', () => {
+      this._openCardGallery(this._link, this._name);
+     });
+  }
+
+  _handleLikeClick() {
+    this._likeElement.classList.toggle('gallery__like_active');
+  };
+
+  _deleteGalleryItem() {
+    this._element.remove();
+  };
 }
