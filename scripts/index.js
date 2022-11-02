@@ -26,9 +26,9 @@ const descriptionUser = profile.querySelector('.profile__user-description');
 
 const gallery = document.querySelector('.gallery__list');
 
-const openedPopup = () => { return document.querySelector('.popup_opened') };
+const findOpenedPopup = () => { return document.querySelector('.popup_opened') };
 
-const settingList = {
+const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-btn',
@@ -37,19 +37,19 @@ const settingList = {
   errorClass: 'popup__input-error_active'
 };
 
-function openPopup (popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', closePopupKeyEsc);
 };
 
-function closePopup (popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   window.removeEventListener('keydown', closePopupKeyEsc);
 };
 
-function closePopupKeyEsc (evt) {
+function closePopupKeyEsc(evt) {
   if(evt.key === 'Escape') {
-    closePopup(openedPopup());
+    closePopup(findOpenedPopup());
   }
 };
 
@@ -68,21 +68,17 @@ function addListenerClosePopupBtns() {
   });
 };
 
-function fillPopupEditProfileInfo () {
+function fillPopupEditProfileInfo() {
   nameInputProfile.value = nameUser.textContent;
   descriptionInput.value = descriptionUser.textContent;
 };
 
-function fillPopupAddGalleryItem () {
-  formPopupGallery.reset();
-};
-
-function fillProfileInfo () {
+function fillProfileInfo() {
   nameUser.textContent = nameInputProfile.value;
   descriptionUser.textContent = descriptionInput.value;
 };
 
-function fillPopupFullScreenGalleryItem (link, name) {
+function fillPopupFullScreenGalleryItem(link, name) {
   popupFullScreenGalleryItemPhoto.src = link;
   popupFullScreenGalleryItemPhoto.alt = name;
   popupFullScreenGalleryItemName.textContent = name;
@@ -93,36 +89,49 @@ function openCardGallery(link, name) {
   openPopup(popupFullScreenGalleryItem);
 }
 
-function renderGalleryItem (item) {
-    const card = new Card(item, '#gallery-item-template', openCardGallery);
-    const cardElement = card.generateCard();
-    gallery.prepend(cardElement);
+function createCard(item) {
+  const card = new Card(item, '#gallery-item-template', openCardGallery);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+function renderGalleryItem(item) {
+  const cardElement = createCard(item)
+  gallery.prepend(cardElement);
 };
 
-function renderGallery (containerItem) {
-  containerItem.forEach((item) => { renderGalleryItem(item) });
+function renderGallery(containerItem) {
+  containerItem.forEach(renderGalleryItem);
 };
 
-const formPopupProfileValidator = new FormValidator(settingList, formPopupProfile);
-formPopupProfileValidator.enableValidation();
+const formValidators = {};
 
-const formPopupGalleryValidator = new FormValidator(settingList, formPopupGallery);
-formPopupGalleryValidator.enableValidation();
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
-function formProfileSubmitHandler (evt) {
+enableValidation(config);
+
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  formPopupProfileValidator.clearValidationErrors();
+  formValidators['profile-form'].resetValidation();
   fillProfileInfo();
   closePopup(popupEditProfileInfo);
 };
 
-function formGallerySubmitHandler (evt) {
+function handleGalleryFormSubmit(evt) {
   evt.preventDefault();
 
   renderGalleryItem({name: nameInputGallery.value, link: linkInputGallery.value} );
-  fillPopupAddGalleryItem();
-  formPopupGalleryValidator.clearValidationErrors();
+  evt.target.reset()
+  formValidators['card-form'].resetValidation();
   closePopup(popupAddGalleryItem);
 };
 
@@ -130,9 +139,8 @@ renderGallery(initialGalleryItems);
 addListenerClosePopupBtns();
 
 profileEditInfoBtn.addEventListener('click', () => {
-
   fillPopupEditProfileInfo();
-  formPopupProfileValidator.clearValidationErrors();
+  formValidators['profile-form'].resetValidation();
   openPopup(popupEditProfileInfo);
 });
 
@@ -140,5 +148,5 @@ profileAddGalleryItemBtn.addEventListener('click', () => {
   openPopup(popupAddGalleryItem);
 });
 
-formPopupProfile.addEventListener('submit', formProfileSubmitHandler);
-formPopupGallery.addEventListener('submit', formGallerySubmitHandler);
+formPopupProfile.addEventListener('submit', handleProfileFormSubmit);
+formPopupGallery.addEventListener('submit', handleGalleryFormSubmit);

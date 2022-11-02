@@ -8,7 +8,6 @@ export class FormValidator {
     this._errorClass = data.errorClass;
     this._formElement = formElement;
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._formList = Array.from(document.querySelectorAll(this._formSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
@@ -59,15 +58,14 @@ export class FormValidator {
   };
 
   enableValidation() {
-    this._formList.forEach(() => {
-      this._setEventListeners();
-    });
+    this._setEventListeners();
   };
 
-  clearValidationErrors() {
+  resetValidation() {
+    this._toggleButtonState();
+
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
-      this._toggleButtonState();
     });
   };
 }
