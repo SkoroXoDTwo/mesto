@@ -1,6 +1,7 @@
 import { initialGalleryItems } from './cards.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { Section } from '../components/Section.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
 
 const popupEditProfileInfo = document.querySelector('#popup_profile');
 const popupAddGalleryItem = document.querySelector('#popup_gallery');
@@ -24,7 +25,8 @@ const profileAddGalleryItemBtn = profile.querySelector('.profile__add-btn');
 const nameUser = profile.querySelector('.profile__user-name');
 const descriptionUser = profile.querySelector('.profile__user-description');
 
-const gallery = document.querySelector('.gallery__list');
+const galleryListSelector = '.gallery__list';
+const galleryList = document.querySelector(galleryListSelector);
 
 const findOpenedPopup = () => { return document.querySelector('.popup_opened') };
 
@@ -48,7 +50,7 @@ function closePopup(popup) {
 };
 
 function closePopupKeyEsc(evt) {
-  if(evt.key === 'Escape') {
+  if (evt.key === 'Escape') {
     closePopup(findOpenedPopup());
   }
 };
@@ -59,7 +61,7 @@ function addListenerClosePopupBtns() {
   popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
-          closePopup(popup)
+        closePopup(popup)
       }
       if (evt.target.classList.contains('popup__close-btn')) {
         closePopup(popup)
@@ -97,12 +99,21 @@ function createCard(item) {
 
 function renderGalleryItem(item) {
   const cardElement = createCard(item)
-  gallery.prepend(cardElement);
+  galleryCardList.setItem(cardElement);
 };
 
-function renderGallery(containerItem) {
-  containerItem.forEach(renderGalleryItem);
-};
+const galleryCardList = new Section({
+  items: initialGalleryItems,
+  renderer: (item) => {
+    const card = new Card(item, '#gallery-item-template', openCardGallery);
+    const cardElement = card.generateCard();
+    galleryCardList.setItem(cardElement);
+  }
+},
+  galleryListSelector
+);
+
+galleryCardList.renderItems();
 
 const formValidators = {};
 
@@ -129,13 +140,12 @@ function handleProfileFormSubmit(evt) {
 function handleGalleryFormSubmit(evt) {
   evt.preventDefault();
 
-  renderGalleryItem({name: nameInputGallery.value, link: linkInputGallery.value} );
+  renderGalleryItem({ name: nameInputGallery.value, link: linkInputGallery.value });
   evt.target.reset()
   formValidators['card-form'].resetValidation();
   closePopup(popupAddGalleryItem);
 };
 
-renderGallery(initialGalleryItems);
 addListenerClosePopupBtns();
 
 profileEditInfoBtn.addEventListener('click', () => {
