@@ -5,7 +5,6 @@ export class PopupWithImage extends Popup {
     super(popupSelector);
     this._popupImg = this._popup.querySelector('.popup__photo');
     this._popupNameValue = this._popup.querySelector('.popup__photo-name');
-    super.setEventListeners();
   }
 
   open(link, name) {

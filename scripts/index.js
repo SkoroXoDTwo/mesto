@@ -1,6 +1,7 @@
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 
 import {
@@ -25,11 +26,6 @@ import {
   config
 } from '../utils/constants.js';
 
-function fillPopupEditProfileInfo() {
-  nameInputProfile.value = nameUser.textContent;
-  descriptionInput.value = descriptionUser.textContent;
-};
-
 function fillProfileInfo() {
   nameUser.textContent = nameInputProfile.value;
   descriptionUser.textContent = descriptionInput.value;
@@ -37,6 +33,18 @@ function fillProfileInfo() {
 
 const popupFullScreenImg = new PopupWithImage('#popup_gallery_item');
 popupFullScreenImg.setEventListeners();
+
+const popupFormProfile = new PopupWithForm('#popup_profile',
+  (evt) => {
+    evt.preventDefault();
+    popupFormProfile._getInputValues();
+    console.log(popupFormProfile._inputsValue);
+    formValidators['profile-form'].resetValidation();
+    fillProfileInfo();
+    popupFormProfile.close();
+  }
+);
+popupFormProfile.setEventListeners();
 
 function createCard(item) {
   const card = new Card(item, '#gallery-item-template', popupFullScreenImg);
@@ -75,11 +83,11 @@ function enableValidation(config) {
 enableValidation(config);
 
 function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+/*  evt.preventDefault();
 
   formValidators['profile-form'].resetValidation();
   fillProfileInfo();
-  closePopup(popupEditProfileInfo);
+  popupFormProfile.close(); */
 };
 
 function handleGalleryFormSubmit(evt) {
@@ -92,9 +100,9 @@ function handleGalleryFormSubmit(evt) {
 };
 
 profileEditInfoBtn.addEventListener('click', () => {
-  fillPopupEditProfileInfo();
+  popupFormProfile.setInputValue({'user-name': 'sf', 'user-description': 'ff'});
   formValidators['profile-form'].resetValidation();
-  openPopup(popupEditProfileInfo);
+  popupFormProfile.open();
 });
 
 profileAddGalleryItemBtn.addEventListener('click', () => {
