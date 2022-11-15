@@ -1,9 +1,9 @@
 export class Card {
-  constructor(data, templateSelector, openCardGallery) {
+  constructor(data, templateSelector, popup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openCardGallery = openCardGallery;
+    this._popup = popup;
   }
 
   _getTemplate() {
@@ -37,7 +37,7 @@ export class Card {
     this._likeElement.addEventListener('click', () => { this._handleLikeClick(); });
     this._trashElement.addEventListener('click', () => { this._deleteGalleryItem(); });
     this._photoElement.addEventListener('click', () => {
-      this._openCardGallery(this._link, this._name);
+      this._popup.open(this._link, this._name);
      });
   }
 
