@@ -1,5 +1,6 @@
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
+import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -26,10 +27,8 @@ import {
   config
 } from '../utils/constants.js';
 
-function fillProfileInfo() {
-  nameUser.textContent = nameInputProfile.value;
-  descriptionUser.textContent = descriptionInput.value;
-};
+const userInfo = new UserInfo('.profile__user-name', '.profile__user-description');
+console.log(userInfo.getUserInfo());
 
 const popupFullScreenImg = new PopupWithImage('#popup_gallery_item');
 popupFullScreenImg.setEventListeners();
@@ -38,13 +37,22 @@ const popupFormProfile = new PopupWithForm('#popup_profile',
   (evt) => {
     evt.preventDefault();
     popupFormProfile._getInputValues();
-    console.log(popupFormProfile._inputsValue);
     formValidators['profile-form'].resetValidation();
-    fillProfileInfo();
+    userInfo.setUserInfo(popupFormProfile._inputsValue['user-name'], popupFormProfile._inputsValue['user-description'])
     popupFormProfile.close();
   }
 );
 popupFormProfile.setEventListeners();
+
+const popupFormPhoto = new PopupWithForm('#popup_gallery',
+  (evt) => {
+    evt.preventDefault();
+    popupFormPhoto._getInputValues();
+    renderGalleryItem({name: popupFormPhoto._inputsValue['photo-name'], link: popupFormPhoto._inputsValue['photo-link']})
+    popupFormPhoto.close();
+  }
+);
+popupFormPhoto.setEventListeners();
 
 function createCard(item) {
   const card = new Card(item, '#gallery-item-template', popupFullScreenImg);
@@ -82,32 +90,13 @@ function enableValidation(config) {
 
 enableValidation(config);
 
-function handleProfileFormSubmit(evt) {
-/*  evt.preventDefault();
-
-  formValidators['profile-form'].resetValidation();
-  fillProfileInfo();
-  popupFormProfile.close(); */
-};
-
-function handleGalleryFormSubmit(evt) {
-  evt.preventDefault();
-
-  renderGalleryItem({ name: nameInputGallery.value, link: linkInputGallery.value });
-  evt.target.reset()
-  formValidators['card-form'].resetValidation();
-  closePopup(popupAddGalleryItem);
-};
-
 profileEditInfoBtn.addEventListener('click', () => {
-  popupFormProfile.setInputValue({'user-name': 'sf', 'user-description': 'ff'});
+  popupFormProfile.setInputValue(userInfo.getUserInfo());
   formValidators['profile-form'].resetValidation();
   popupFormProfile.open();
 });
 
 profileAddGalleryItemBtn.addEventListener('click', () => {
-  openPopup(popupAddGalleryItem);
+  formValidators['card-form'].resetValidation();
+  popupFormPhoto.open();
 });
-
-formPopupProfile.addEventListener('submit', handleProfileFormSubmit);
-formPopupGallery.addEventListener('submit', handleGalleryFormSubmit);
