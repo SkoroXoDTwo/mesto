@@ -6,71 +6,80 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 
 import {
-  popupEditProfileInfo,
-  popupAddGalleryItem,
-  popupFullScreenGalleryItem,
-  popupFullScreenGalleryItemPhoto,
-  popupFullScreenGalleryItemName,
-  formPopupProfile,
-  formPopupGallery,
-  nameInputProfile,
-  descriptionInput,
-  nameInputGallery,
-  linkInputGallery,
+  popupPhotoItemSelector,
+  popupEditProfileSelector,
+  popupAddPhotoSelector,
   profileEditInfoBtn,
   profileAddGalleryItemBtn,
-  nameUser,
-  descriptionUser,
   galleryListSelector,
   initialGalleryItems,
   formValidators,
-  config
+  configValidator
 } from '../utils/constants.js';
 
-const userInfo = new UserInfo('.profile__user-name', '.profile__user-description');
-console.log(userInfo.getUserInfo());
+const userInfo = new UserInfo({
+  nameSelector: '.profile__user-name',
+  descriptionSelector: '.profile__user-description'
+});
 
-const popupFullScreenImg = new PopupWithImage('#popup_gallery_item');
-popupFullScreenImg.setEventListeners();
+const popupFullScreenImg = new PopupWithImage({
+  popupSelector: popupPhotoItemSelector
+});
 
-const popupFormProfile = new PopupWithForm('#popup_profile',
-  (evt) => {
+const popupFormProfile = new PopupWithForm({
+  popupSelector: popupEditProfileSelector,
+  handleFormSubmit: (evt) => {
     evt.preventDefault();
     popupFormProfile._getInputValues();
     formValidators['profile-form'].resetValidation();
-    userInfo.setUserInfo(popupFormProfile._inputsValue['user-name'], popupFormProfile._inputsValue['user-description'])
+    userInfo.setUserInfo({
+      name: popupFormProfile._inputsValue['user-name'],
+      description: popupFormProfile._inputsValue['user-description']
+    });
     popupFormProfile.close();
   }
-);
-popupFormProfile.setEventListeners();
+});
 
-const popupFormPhoto = new PopupWithForm('#popup_gallery',
-  (evt) => {
+const popupFormPhoto = new PopupWithForm({
+  popupSelector: popupAddPhotoSelector,
+  handleFormSubmit: (evt) => {
     evt.preventDefault();
     popupFormPhoto._getInputValues();
-    renderGalleryItem({name: popupFormPhoto._inputsValue['photo-name'], link: popupFormPhoto._inputsValue['photo-link']})
+    renderGalleryItem({
+      name: popupFormPhoto._inputsValue['photo-name'],
+      link: popupFormPhoto._inputsValue['photo-link']
+    })
     popupFormPhoto.close();
   }
-);
+});
+
+popupFullScreenImg.setEventListeners();
+popupFormProfile.setEventListeners();
 popupFormPhoto.setEventListeners();
 
 function createCard(item) {
-  const card = new Card(item, '#gallery-item-template', popupFullScreenImg);
+  const card = new Card({
+    data: item,
+    templateSelector: '#gallery-item-template',
+    handleCardClick: () => {
+      popupFullScreenImg.open({
+        name: card._name,
+        link: card._link
+      });
+    }
+  });
   const cardElement = card.generateCard();
-  return cardElement;
+  galleryCardList.setItem(cardElement);
 }
 
 function renderGalleryItem(item) {
-  const cardElement = createCard(item)
-  galleryCardList.setItem(cardElement);
+  createCard(item);
 };
 
 const galleryCardList = new Section({
   items: initialGalleryItems,
   renderer: (item) => {
-    const card = new Card(item, '#gallery-item-template', popupFullScreenImg);
-    const cardElement = card.generateCard();
-    galleryCardList.setItem(cardElement);
+    createCard(item);
   }
 },
   galleryListSelector
@@ -79,16 +88,19 @@ const galleryCardList = new Section({
 galleryCardList.renderItems();
 
 function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement)
-    const formName = formElement.getAttribute('name')
+    const validator = new FormValidator({
+      config: config,
+      formElement: formElement
+    });
+    const formName = formElement.getAttribute('name');
     formValidators[formName] = validator;
     validator.enableValidation();
   });
 };
 
-enableValidation(config);
+enableValidation(configValidator);
 
 profileEditInfoBtn.addEventListener('click', () => {
   popupFormProfile.setInputValue(userInfo.getUserInfo());
