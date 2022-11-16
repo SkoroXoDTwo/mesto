@@ -20,6 +20,8 @@
 * JS;
 * ООП;
 * Методология БЭМ;
-* БЭМ Nested.
+* БЭМ Nested;
+* Webpack;
+* Babel.
 
 Сайт можно запустить по [ссылке](https://skoroxodtwo.github.io/mesto/).
