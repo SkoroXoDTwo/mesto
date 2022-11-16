@@ -45,5 +45,6 @@ export class Card {
 
   _deleteGalleryItem() {
     this._element.remove();
+    this._element = null;
   };
 }

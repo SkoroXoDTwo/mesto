@@ -29,13 +29,13 @@ const popupFullScreenImg = new PopupWithImage({
 
 const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
-  handleFormSubmit: (evt) => {
+  handleFormSubmit: (evt, inputsValue) => {
     evt.preventDefault();
     popupFormProfile._getInputValues();
     formValidators['profile-form'].resetValidation();
     userInfo.setUserInfo({
-      name: popupFormProfile._inputsValue['user-name'],
-      description: popupFormProfile._inputsValue['user-description']
+      name: inputsValue['user-name'],
+      description: inputsValue['user-description']
     });
     popupFormProfile.close();
   }
@@ -43,12 +43,12 @@ const popupFormProfile = new PopupWithForm({
 
 const popupFormPhoto = new PopupWithForm({
   popupSelector: popupAddPhotoSelector,
-  handleFormSubmit: (evt) => {
+  handleFormSubmit: (evt, inputsValue) => {
     evt.preventDefault();
     popupFormPhoto._getInputValues();
     renderGalleryItem({
-      name: popupFormPhoto._inputsValue['photo-name'],
-      link: popupFormPhoto._inputsValue['photo-link']
+      name: inputsValue['photo-name'],
+      link: inputsValue['photo-link']
     })
     popupFormPhoto.close();
   }
@@ -69,24 +69,22 @@ function createCard(item) {
       });
     }
   });
-  const cardElement = card.generateCard();
-  galleryCardList.setItem(cardElement);
+  return card.generateCard();
 }
 
 function renderGalleryItem(item) {
-  createCard(item);
+  const cardElement = createCard(item);
+  galleryCardList.setItem(cardElement);
 };
 
 const galleryCardList = new Section({
-  items: initialGalleryItems,
+  containerSelector: galleryListSelector,
   renderer: (item) => {
-    createCard(item);
+    renderGalleryItem(item);
   }
-},
-  galleryListSelector
-);
+});
 
-galleryCardList.renderItems();
+galleryCardList.renderItems(initialGalleryItems);
 
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
