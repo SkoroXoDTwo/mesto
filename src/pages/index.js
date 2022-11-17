@@ -29,9 +29,7 @@ const popupFullScreenImg = new PopupWithImage({
 
 const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
-  handleFormSubmit: (evt, inputsValue) => {
-    evt.preventDefault();
-    popupFormProfile._getInputValues();
+  handleFormSubmit: (inputsValue) => {
     formValidators['profile-form'].resetValidation();
     userInfo.setUserInfo({
       name: inputsValue['user-name'],
@@ -43,9 +41,7 @@ const popupFormProfile = new PopupWithForm({
 
 const popupFormPhoto = new PopupWithForm({
   popupSelector: popupAddPhotoSelector,
-  handleFormSubmit: (evt, inputsValue) => {
-    evt.preventDefault();
-    popupFormPhoto._getInputValues();
+  handleFormSubmit: (inputsValue) => {
     renderGalleryItem({
       name: inputsValue['photo-name'],
       link: inputsValue['photo-link']

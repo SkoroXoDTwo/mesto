@@ -25,13 +25,14 @@ export class PopupWithForm extends Popup {
       const inputName = input.getAttribute('name');
       this._inputsValue[inputName] = input.value;
     });
-    return this._inputsValue = {};
+    return this._inputsValue;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._popup.addEventListener('submit', (evt) => {
-      this._handleFormSubmit(evt, this._getInputValues());
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
     });
   }
 }
