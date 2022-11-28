@@ -39,6 +39,7 @@ const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
   handleFormSubmit: (inputsValue) => {
     formValidators["profile-form"].resetValidation();
+    popupFormProfile.handleLoadingBtn(true);
 
     api.pathUserInfo({
       name: inputsValue["user-name"],
@@ -54,6 +55,7 @@ const popupFormProfile = new PopupWithForm({
         console.log(err);
       })
       .finally(() => {
+        popupFormProfile.handleLoadingBtn(false);
         popupFormProfile.close();
       });
   },
