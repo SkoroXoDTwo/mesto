@@ -39,15 +39,23 @@ const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
   handleFormSubmit: (inputsValue) => {
     formValidators["profile-form"].resetValidation();
-    userInfo.setUserInfo({
-      name: inputsValue["user-name"],
-      about: inputsValue["user-about"],
-    });
+
     api.pathUserInfo({
       name: inputsValue["user-name"],
       about: inputsValue["user-about"],
-    });
-    popupFormProfile.close();
+    })
+      .then((result) => {
+        return result.json()
+      })
+      .then((data) => {
+        userInfo.setUserInfo(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupFormProfile.close();
+      });
   },
 });
 
