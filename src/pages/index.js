@@ -14,7 +14,6 @@ import {
   profileEditInfoBtn,
   profileAddGalleryItemBtn,
   galleryListSelector,
-  initialGalleryItems,
   formValidators,
   configValidator,
 } from "../utils/constants.js";
@@ -26,14 +25,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
-// api.getInitialCards()
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__user-name",
@@ -49,6 +40,10 @@ const popupFormProfile = new PopupWithForm({
   handleFormSubmit: (inputsValue) => {
     formValidators["profile-form"].resetValidation();
     userInfo.setUserInfo({
+      name: inputsValue["user-name"],
+      about: inputsValue["user-about"],
+    });
+    api.pathUserInfo({
       name: inputsValue["user-name"],
       about: inputsValue["user-about"],
     });
@@ -97,7 +92,23 @@ const galleryCardList = new Section({
   },
 });
 
-galleryCardList.renderItems(initialGalleryItems);
+api
+  .getInitialUserInfo()
+  .then((result) => {
+    userInfo.setUserInfo(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+api
+  .getInitialCards()
+  .then((result) => {
+    galleryCardList.renderItems(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
