@@ -4,6 +4,7 @@ export class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._countLikes = data.likes.length;
   }
 
   _getTemplate() {
@@ -21,12 +22,14 @@ export class Card {
 
     this._nameElement = this._element.querySelector('.gallery__name');
     this._photoElement  = this._element.querySelector('.gallery__photo');
-    this._likeElement = this._element.querySelector('.gallery__like');
+    this._likeElement = this._element.querySelector('.gallery__like-btn');
     this._trashElement = this._element.querySelector('.gallery__trash');
+    this._countLikesElement = this._element.querySelector('.gallery__like-count');
 
     this._nameElement.textContent = this._name;
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
+    this._countLikesElement.textContent = this._countLikes;
 
     this._setEventListeners();
 
@@ -40,7 +43,7 @@ export class Card {
   }
 
   _handleLikeClick() {
-    this._likeElement.classList.toggle('gallery__like_active');
+    this._likeElement.classList.toggle('gallery__like-btn_active');
   };
 
   _deleteGalleryItem() {

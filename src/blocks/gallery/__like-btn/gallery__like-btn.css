@@ -1,6 +1,6 @@
-.gallery__like {
-  max-width: 22px;
-  width: 100%;
+.gallery__like-btn {
+  padding: 0;
+  width: 22px;
   height: 19px;
   border: none;
   background: none;
@@ -10,7 +10,7 @@
   transition: opacity .2s;
 }
 
-.gallery__like:hover {
+.gallery__like-btn:hover {
   cursor: pointer;
   opacity: .5;
 }

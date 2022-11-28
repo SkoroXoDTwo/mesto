@@ -28,8 +28,10 @@
 @import url(../blocks/gallery/__trash/gallery__trash.css);
 @import url(../blocks/gallery/__cover/gallery__cover.css);
 @import url(../blocks/gallery/__name/gallery__name.css);
-@import url(../blocks/gallery/__like/gallery__like.css);
-@import url(../blocks/gallery/__like/_active/gallery__like_active.css);
+@import url(../blocks/gallery/__like-container/gallery__like-container.css);
+@import url(../blocks/gallery/__like-btn/gallery__like-btn.css);
+@import url(../blocks/gallery/__like-count/gallery__like-count.css);
+@import url(../blocks/gallery/__like-btn/_active/gallery__like-btn_active.css);
 
 /* ----------- Cекция Footer ----------- */
 @import url(../blocks/footer/footer.css);
