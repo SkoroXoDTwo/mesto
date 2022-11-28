@@ -1,4 +1,4 @@
-.profile__user-description {
+.profile__user-about {
   margin: 0;
   padding: 0;
   grid-column: 1 / 3;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .profile__user-description {
+  .profile__user-about {
     font-size: 14px;
     line-height: 1.21;
     max-width: 237px;
