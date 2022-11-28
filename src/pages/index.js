@@ -41,12 +41,13 @@ const popupFormProfile = new PopupWithForm({
     formValidators["profile-form"].resetValidation();
     popupFormProfile.handleLoadingBtn(true);
 
-    api.pathUserInfo({
-      name: inputsValue["user-name"],
-      about: inputsValue["user-about"],
-    })
+    api
+      .pathUserInfo({
+        name: inputsValue["user-name"],
+        about: inputsValue["user-about"],
+      })
       .then((result) => {
-        return result.json()
+        return result.json();
       })
       .then((data) => {
         userInfo.setUserInfo(data);
@@ -64,11 +65,29 @@ const popupFormProfile = new PopupWithForm({
 const popupFormPhoto = new PopupWithForm({
   popupSelector: popupAddPhotoSelector,
   handleFormSubmit: (inputsValue) => {
-    renderGalleryItem({
-      name: inputsValue["photo-name"],
-      link: inputsValue["photo-link"],
-    });
-    popupFormPhoto.close();
+    popupFormPhoto.handleLoadingBtn(true);
+
+    api
+      .postCard({
+        name: inputsValue["photo-name"],
+        link: inputsValue["photo-link"],
+      })
+      .then((result) => {
+        return result.json();
+      })
+      .then((data) => {
+        renderGalleryItem({
+          name: data.name,
+          link: data.link,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupFormPhoto.handleLoadingBtn(false);
+        popupFormPhoto.close();
+      });
   },
 });
 
@@ -113,8 +132,8 @@ api
 
 api
   .getInitialCards()
-  .then((result) => {
-    galleryCardList.renderItems(result);
+  .then((cards) => {
+    galleryCardList.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(err);

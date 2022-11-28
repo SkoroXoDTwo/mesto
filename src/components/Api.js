@@ -24,13 +24,24 @@ export class Api {
     });
   }
 
-  pathUserInfo({ name, about }) {
+  pathUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        about: about
+        name: data.name,
+        about: data.about
+      })
+    });
+  }
+
+  postCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
       })
     });
   }
