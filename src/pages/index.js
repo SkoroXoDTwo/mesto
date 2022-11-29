@@ -14,9 +14,11 @@ import {
   popupPhotoItemSelector,
   popupEditProfileSelector,
   popupAddPhotoSelector,
+  popupEditAvatarSelector,
   popupDeleteItemSelector,
   profileEditInfoBtn,
   profileAddGalleryItemBtn,
+  profileEditAvatarBtn,
   galleryListSelector,
   formValidators,
   configValidator,
@@ -33,6 +35,7 @@ const api = new Api({
 const userInfo = new UserInfo({
   nameSelector: ".profile__user-name",
   aboutSelector: ".profile__user-about",
+  avatarSelector: ".profile__picture",
 });
 
 const popupFullScreenImg = new PopupWithImage({
@@ -83,6 +86,27 @@ const popupFormProfile = new PopupWithForm({
   },
 });
 
+const popupFormAvatar = new PopupWithForm({
+  popupSelector: popupEditAvatarSelector,
+  handleFormSubmit: (inputsValue) => {
+    popupFormAvatar.setLoadnigIsBtn(true);
+    api
+      .patchAvatar({
+        avatar: inputsValue["avatar-link"],
+      })
+      .then((data) => {
+        userInfo.setUserInfo(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupFormAvatar.setLoadnigIsBtn(false);
+        popupFormAvatar.close();
+      });
+  },
+});
+
 const popupFormPhoto = new PopupWithForm({
   popupSelector: popupAddPhotoSelector,
   handleFormSubmit: (inputsValue) => {
@@ -108,6 +132,7 @@ const popupFormPhoto = new PopupWithForm({
 
 popupFullScreenImg.setEventListeners();
 popupFormProfile.setEventListeners();
+popupFormAvatar.setEventListeners();
 popupFormPhoto.setEventListeners();
 popupDeleteCard.setEventListeners();
 
@@ -210,4 +235,9 @@ profileEditInfoBtn.addEventListener("click", () => {
 profileAddGalleryItemBtn.addEventListener("click", () => {
   formValidators["card-form"].resetValidation();
   popupFormPhoto.open();
+});
+
+profileEditAvatarBtn.addEventListener("click", () => {
+  formValidators["avatar-form"].resetValidation();
+  popupFormAvatar.open();
 });

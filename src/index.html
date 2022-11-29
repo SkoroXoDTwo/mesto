@@ -15,8 +15,8 @@
     <main>
       <section class="profile">
         <div class="profile__info">
-          <button class="profile__picture-btn">
-            <img class="profile__picture" src="<%=require('./images/profile-picture.jpg')%>" alt="аватарка пользователя">
+          <button class="profile__picture-btn" type="button">
+            <img class="profile__picture" src="<%=require('./images/avatar-loader.gif')%>" alt="аватарка пользователя">
           </button>
           <div class="profile__user">
             <h1 class="profile__user-name">Загрузка...</h1>
@@ -86,8 +86,22 @@
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__title popup__title_type_delete">Вы уверены?</h2>
-        <form class="popup__form" name="card-form" novalidate>
+        <form class="popup__form" novalidate>
           <button class="popup__save-btn" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="popup_avatar">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="avatar-form" novalidate>
+          <input class="popup__input" id="link-photo-input"
+            type="url" name="avatar-link" placeholder="Ссылка на аватар" required>
+          <span class="popup__input-error" id="link-photo-input-error"></span>
+
+          <button class="popup__save-btn popup__save-btn_disabled" type="submit" disabled>Сохранить</button>
         </form>
       </div>
     </div>

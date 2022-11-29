@@ -32,8 +32,8 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.about
-      })
+        about: data.about,
+      }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -47,8 +47,8 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        link: data.link
-      })
+        link: data.link,
+      }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -59,14 +59,14 @@ export class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers
+      headers: this._headers,
     });
   }
 
   putCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -77,7 +77,21 @@ export class Api {
   deleteCardLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: this._headers
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    });
+  }
+
+  patchAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar,
+      })
     }).then((res) => {
       if (res.ok) {
         return res.json();
