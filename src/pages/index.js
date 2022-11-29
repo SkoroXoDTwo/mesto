@@ -65,7 +65,6 @@ const popupDeleteCard = new PopupWithСonfirmation({
 const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
   handleFormSubmit: (inputsValue) => {
-    formValidators["profile-form"].resetValidation();
     popupFormProfile.setLoadnigIsBtn(true);
 
     api
@@ -209,6 +208,7 @@ const getInitialData = async () => {
       console.log(err);
     });
 };
+
 getInitialData();
 
 function enableValidation(config) {

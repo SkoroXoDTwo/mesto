@@ -23,6 +23,8 @@ export class Api {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -38,6 +40,8 @@ export class Api {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -53,6 +57,8 @@ export class Api {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -60,6 +66,12 @@ export class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -71,6 +83,8 @@ export class Api {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -82,6 +96,8 @@ export class Api {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
@@ -91,11 +107,13 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
-      })
+      }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
       }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 }
