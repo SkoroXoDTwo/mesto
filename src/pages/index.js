@@ -70,9 +70,6 @@ const popupFormProfile = new PopupWithForm({
         name: inputsValue["user-name"],
         about: inputsValue["user-about"],
       })
-      .then((result) => {
-        return result.json();
-      })
       .then((data) => {
         userInfo.setUserInfo(data);
       })
@@ -95,9 +92,6 @@ const popupFormPhoto = new PopupWithForm({
       .postCard({
         name: inputsValue["photo-name"],
         link: inputsValue["photo-link"],
-      })
-      .then((result) => {
-        return result.json();
       })
       .then((data) => {
         renderGalleryItem(data);
@@ -122,8 +116,31 @@ function createCard(item) {
     data: item,
     templateSelector: "#gallery-item-template",
     userId: userId,
-    handleBtnDeleteClick: () => {
+    handleDeleteBtnClick: () => {
       popupDeleteCard.open(card);
+    },
+    handleLikeBtnClick: () => {
+      if (card._isUserLiked()) {
+        api
+          .deleteCardLike(card.id)
+          .then((data) => {
+            card._likes = data.likes;
+            card._renderLikeContainer();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .putCardLike(card.id)
+          .then((data) => {
+            card._likes = data.likes;
+            card._renderLikeContainer();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
     handleCardClick: () => {
       popupFullScreenImg.open({
