@@ -5,4 +5,11 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  background-color: red;
+  transition: opacity .2s;
+}
+
+.profile__picture:hover {
+  cursor: pointer;
+  opacity: .2;
 }

@@ -13,6 +13,7 @@
 /* ----------- Cекция Profile ----------- */
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__picture-btn/profile__picture-btn.css);
 @import url(../blocks/profile/__picture/profile__picture.css);
 @import url(../blocks/profile/__user/profile__user.css);
 @import url(../blocks/profile/__user-name/profile__user-name.css);
