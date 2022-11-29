@@ -5,12 +5,16 @@ import { Card } from "../components/Card.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithСonfirmation } from "../components/PopupWithСonfirmation.js";
 import { FormValidator } from "../components/FormValidator.js";
+
+let userId = null;
 
 import {
   popupPhotoItemSelector,
   popupEditProfileSelector,
   popupAddPhotoSelector,
+  popupDeleteItemSelector,
   profileEditInfoBtn,
   profileAddGalleryItemBtn,
   galleryListSelector,
@@ -35,11 +39,31 @@ const popupFullScreenImg = new PopupWithImage({
   popupSelector: popupPhotoItemSelector,
 });
 
+const popupDeleteCard = new PopupWithСonfirmation({
+  popupSelector: popupDeleteItemSelector,
+  handleFormSubmit: () => {
+    popupDeleteCard.setLoadnigIsBtn(true);
+
+    api
+      .deleteCard(popupDeleteCard.card.id)
+      .then(() => {
+        popupDeleteCard.card.deleteCard();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupDeleteCard.setLoadnigIsBtn(false);
+        popupDeleteCard.close();
+      });
+  },
+});
+
 const popupFormProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector,
   handleFormSubmit: (inputsValue) => {
     formValidators["profile-form"].resetValidation();
-    popupFormProfile.handleLoadingBtn(true);
+    popupFormProfile.setLoadnigIsBtn(true);
 
     api
       .pathUserInfo({
@@ -56,7 +80,7 @@ const popupFormProfile = new PopupWithForm({
         console.log(err);
       })
       .finally(() => {
-        popupFormProfile.handleLoadingBtn(false);
+        popupFormProfile.setLoadnigIsBtn(false);
         popupFormProfile.close();
       });
   },
@@ -65,7 +89,7 @@ const popupFormProfile = new PopupWithForm({
 const popupFormPhoto = new PopupWithForm({
   popupSelector: popupAddPhotoSelector,
   handleFormSubmit: (inputsValue) => {
-    popupFormPhoto.handleLoadingBtn(true);
+    popupFormPhoto.setLoadnigIsBtn(true);
 
     api
       .postCard({
@@ -76,16 +100,13 @@ const popupFormPhoto = new PopupWithForm({
         return result.json();
       })
       .then((data) => {
-        renderGalleryItem({
-          name: data.name,
-          link: data.link,
-        });
+        renderGalleryItem(data);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        popupFormPhoto.handleLoadingBtn(false);
+        popupFormPhoto.setLoadnigIsBtn(false);
         popupFormPhoto.close();
       });
   },
@@ -94,11 +115,16 @@ const popupFormPhoto = new PopupWithForm({
 popupFullScreenImg.setEventListeners();
 popupFormProfile.setEventListeners();
 popupFormPhoto.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 function createCard(item) {
   const card = new Card({
     data: item,
     templateSelector: "#gallery-item-template",
+    userId: userId,
+    handleBtnDeleteClick: () => {
+      popupDeleteCard.open(card);
+    },
     handleCardClick: () => {
       popupFullScreenImg.open({
         name: card._name,
@@ -121,23 +147,27 @@ const galleryCardList = new Section({
   },
 });
 
-api
-  .getInitialUserInfo()
-  .then((result) => {
-    userInfo.setUserInfo(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const getInitialData = async () => {
+  await api
+    .getInitialUserInfo()
+    .then((result) => {
+      userId = result._id;
+      userInfo.setUserInfo(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-api
-  .getInitialCards()
-  .then((cards) => {
-    galleryCardList.renderItems(cards.reverse());
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  await api
+    .getInitialCards()
+    .then((cards) => {
+      galleryCardList.renderItems(cards.reverse());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+getInitialData();
 
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
