@@ -7,9 +7,9 @@ export class Card {
     handleLikeBtnClick,
     handleCardClick,
   }) {
-    this._name = data.name;
-    this._link = data.link;
-    this._likes = data.likes;
+    this.name = data.name;
+    this.link = data.link;
+    this.likes = data.likes;
     this._ownerId = data.owner._id;
     this.id = data._id;
     this._templateSelector = templateSelector;
@@ -39,11 +39,11 @@ export class Card {
       ".gallery__like-count"
     );
 
-    this._nameElement.textContent = this._name;
-    this._photoElement.src = this._link;
-    this._photoElement.alt = this._name;
+    this._nameElement.textContent = this.name;
+    this._photoElement.src = this.link;
+    this._photoElement.alt = this.name;
 
-    this._renderLikeContainer();
+    this.renderLikeContainer();
 
     if (!this._isUserOwner()) {
       this._deleteTrashElement();
@@ -53,16 +53,16 @@ export class Card {
     return this._element;
   }
 
-  _renderLikeContainer() {
-    this._countLikesElement.textContent = this._likes.length;
+  renderLikeContainer() {
+    this._countLikesElement.textContent = this.likes.length;
 
-    this._isUserLiked()
+    this.isUserLiked()
       ? this._likeElement.classList.add("gallery__like-btn_active")
       : this._likeElement.classList.remove("gallery__like-btn_active");
   }
 
-  _isUserLiked() {
-    return this._likes.some((item) => {
+  isUserLiked() {
+    return this.likes.some((item) => {
       return item._id === this._userId;
     });
   }

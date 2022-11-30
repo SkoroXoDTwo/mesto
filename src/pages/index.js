@@ -51,13 +51,13 @@ const popupDeleteCard = new PopupWithСonfirmation({
       .deleteCard(popupDeleteCard.card.id)
       .then(() => {
         popupDeleteCard.card.deleteCard();
+        popupDeleteCard.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupDeleteCard.setLoadnigIsBtn(false);
-        popupDeleteCard.close();
       });
   },
 });
@@ -74,13 +74,13 @@ const popupFormProfile = new PopupWithForm({
       })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupFormProfile.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupFormProfile.setLoadnigIsBtn(false);
-        popupFormProfile.close();
       });
   },
 });
@@ -95,13 +95,13 @@ const popupFormAvatar = new PopupWithForm({
       })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupFormAvatar.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupFormAvatar.setLoadnigIsBtn(false);
-        popupFormAvatar.close();
       });
   },
 });
@@ -118,13 +118,13 @@ const popupFormPhoto = new PopupWithForm({
       })
       .then((data) => {
         renderGalleryItem(data);
+        popupFormPhoto.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupFormPhoto.setLoadnigIsBtn(false);
-        popupFormPhoto.close();
       });
   },
 });
@@ -144,12 +144,12 @@ function createCard(item) {
       popupDeleteCard.open(card);
     },
     handleLikeBtnClick: () => {
-      if (card._isUserLiked()) {
+      if (card.isUserLiked()) {
         api
           .deleteCardLike(card.id)
           .then((data) => {
-            card._likes = data.likes;
-            card._renderLikeContainer();
+            card.likes = data.likes;
+            card.renderLikeContainer();
           })
           .catch((err) => {
             console.log(err);
@@ -158,8 +158,8 @@ function createCard(item) {
         api
           .putCardLike(card.id)
           .then((data) => {
-            card._likes = data.likes;
-            card._renderLikeContainer();
+            card.likes = data.likes;
+            card.renderLikeContainer();
           })
           .catch((err) => {
             console.log(err);
@@ -168,8 +168,8 @@ function createCard(item) {
     },
     handleCardClick: () => {
       popupFullScreenImg.open({
-        name: card._name,
-        link: card._link,
+        name: card.name,
+        link: card.link,
       });
     },
   });
