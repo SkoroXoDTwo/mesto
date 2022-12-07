@@ -1,7 +1,9 @@
 # Проект: Место
 ------
+<div align="center">
+<img  src="https://i.ibb.co/7rFQM7x/localhost-8080-1.png" align="center">
+</div>
 
-<img src="https://i.ibb.co/7rFQM7x/localhost-8080-1.png" align="center">
 
 ## 📖 Описание проекта:
 Социальная сеть для демонстрации фотографий.<br><br>
